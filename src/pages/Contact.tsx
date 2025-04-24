@@ -94,6 +94,7 @@ export default function Contact() {
         </p>
         <form
           action="https://formspree.io/f/mdkewonk"
+          onSubmit={handleSubmit}
           method="POST"
           className="space-y-6"
         >

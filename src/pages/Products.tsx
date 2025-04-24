@@ -13,8 +13,6 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [priceRange, setPriceRange] = useState<number>(2000);
   const dispatch = useDispatch();
   const [priceFilter, setPriceFilter] = useState<string>("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -53,7 +51,6 @@ export default function Products() {
         product.price <= 500) ||
       (priceFilter === "over-500" && product.price > 500);
 
-    // const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
     const matchesCategory =
       categoryFilter === "all" ||
       (categoryFilter === "Grocery" && product.category === "groceries") ||
@@ -74,23 +71,6 @@ export default function Products() {
 
     return matchesPrice && matchesCategory;
   });
-
-  // const filteredProducts1 = products.filter(product => {
-  //   const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-  //   const matchesPrice = product.price <= priceRange;
-  //   return matchesCategory && matchesPrice;
-  // });
-
-  // const categories = ['all', ...new Set(products.map(product => product.category))];
-  // const maxPrice = Math.max(...products.map(product => product.price));
-
-  // if (loading) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-screen">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-  //     </div>
-  //   );
-  // }
 
   if (loading) {
     return (
@@ -125,22 +105,6 @@ export default function Products() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-bold mb-8">Our Products</h1>
-      {/* <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4"> */}
-      {/* <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Price Range
-          </label>
-          <select
-            value={priceFilter}
-            onChange={(e) => setPriceFilter(e.target.value)}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          >
-            <option value="all">All Prices</option>
-            <option value="under-200">Under $200</option>
-            <option value="200-500">$200 - $500</option>
-            <option value="over-500">Over $500</option>
-          </select>
-        </div> */}
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-lg shadow-md">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -175,62 +139,7 @@ export default function Products() {
           </select>
         </div>
       </div>
-
-      {/* <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Category
-          </label>
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          >
-            <option value="all">All Categories</option>
-            <option value="Grocery">Grocery</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Fashion">Fashion</option>
-            <option value="Home & Living">Home & Living</option>
-          </select>
-        </div> */}
-      {/* </div> */}
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Filters */}
-        {/* <div className="w-full md:w-64 space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-3">Categories</h3>
-            <div className="space-y-2">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`block w-full text-left px-3 py-2 rounded ${
-                    selectedCategory === category
-                      ? 'bg-indigo-600 text-white'
-                      : 'hover:bg-gray-100'
-                  }`}
-                >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-3">Price Range</h3>
-            <input
-              type="range"
-              min="0"
-              max={maxPrice}
-              value={priceRange}
-              onChange={(e) => setPriceRange(Number(e.target.value))}
-              className="w-full"
-            />
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>$0</span>
-              <span>${priceRange}</span>
-            </div>
-          </div>
-        </div> */}
 
         {/* Product Grid */}
         <div className="flex-1">
@@ -279,13 +188,6 @@ export default function Products() {
                           </span>
                         )}
                       </div>
-                      {/* <button
-                        onClick={() => dispatch(addToCart(product))}
-                        className="p-2 text-indigo-600 hover:text-indigo-800 transition-colors"
-                        aria-label="Add to cart"
-                      >
-                        <ShoppingCart className="h-6 w-6" />
-                      </button> */}
                       <button
                         onClick={() => dispatch(addToCart(product))}
                         className={`p-2 ${
@@ -307,9 +209,6 @@ export default function Products() {
               ))}
             </div>
           ) : (
-            //   <div className="text-center text-gray-600 text-lg">
-            //   No products match your filters. Please try adjusting the filters.
-            // </div>
             <div className="flex flex-col items-center justify-center text-center text-gray-600 text-lg py-12">
               <p className="font-semibold text-gray-800">
                 No products match your filters.

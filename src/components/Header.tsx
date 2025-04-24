@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export default function Header({ cartItemsCount = 0 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const uniqueProductsCount = cartItems.length;
 
   return (
     <header className="bg-white shadow-md fixed w-full top-0 z-50">
